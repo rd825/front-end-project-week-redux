@@ -30,7 +30,7 @@ export const deleteNote = id => {
   return dispatch => {
     dispatch({type: DELETING_NOTE});
     axios.delete(`https://fe-notes.herokuapp.com/note/delete/${id}`)
-         .then(res => dispatch({type: GOT_NOTES, payload: res.data}))
+         .then(res => dispatch({type: DELETING_NOTE, payload: res.data}))
          .catch(err => dispatch({type: ERROR, payload: err}))
   }
 }

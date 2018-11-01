@@ -1,33 +1,31 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {getNotes, addNote, deleteNote, editNote} from '../actions'
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    }
-  }
+import Nav from './Nav';
+import Notes from './Notes';
+import FPNote from './FPNote';
 
-  componentDidMount() {
-    this.props.getNotes()
-  }
+const App = () => {
+  return (
+    <div className="App">
+      <Nav />
 
-  render() {
-    return (
-      <div className="App">
-          {this.props.notes.map(note => <p>{note.title}</p>)}
-      </div>
-    );
-  }
+      <Route
+          exact path="/"
+          render={props => (
+            <Notes {...props} />
+          )} 
+      />
+
+      <Route
+          path="/notes/:id"
+          render={props => (
+            <FPNote {...props} />
+          )}
+        />
+
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    notes: state.notes,
-    got: state.got
-  }
-}
-
-export default connect(mapStateToProps, {getNotes, addNote, deleteNote, editNote})(App);
+export default App;
